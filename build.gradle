@@ -24,10 +24,24 @@ def createWebDir = {
             dir.mkdirs()
         }
 }
-
+def createMyTestDir = {
+    path ->
+        File dir = new File(path)
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
+}
 task createWebReousre {
     def paths = ['src/main/webapp/', 'src/test/webresource']
     doFirst {
         paths.forEach(createWebDir)
     }
 }
+task createMyTest {
+    def paths = ['src/main/mytest/', 'src/test/mytest']
+    doLast {
+        paths.forEach(createMyTestDir)
+    }
+}
+
+createMyTest.dependsOn createWebReousre
